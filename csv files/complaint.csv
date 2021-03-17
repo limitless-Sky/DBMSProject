@@ -1,0 +1,6 @@
+ComplaintID,StaffResolutionStatus,ComplaintResolutionStatus,TimeStamp,Description,ComplaintForum_ComplaintForumID,MaintenanceStaff_AccountID,MaintenanceStaff_NoticeBoard_NoticeBoardID,resident_AccountNumber,SecurityStaff_AccountID
+1,1,1,10:47 PM,Leaking Faucet,1,85972,86,2,1
+2,0,0,3:17 AM,Broken wash basin pipe,2,18047,798,3,2
+3,0,0,6:56 AM,No network on tata sky,3,210,3412,3,4
+4,1,1,11:17 AM,Lost wallet,4,0,3,4,4
+5,1,1,8:14 AM,Broken fan,5,38889,0,1,1

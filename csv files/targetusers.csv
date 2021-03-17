@@ -1,0 +1,6 @@
+UserType,Announcement_AnnouncementID,complaint_ComplaintID,complaint_ComplaintForum_ComplaintForumID
+securityStaff,1,1,1
+maintenanceStaff,2,2,2
+resident,3,3,3
+resident,4,4,4
+visitor,5,5,5
