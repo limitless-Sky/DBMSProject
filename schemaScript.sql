@@ -73,8 +73,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Parking` (
   `BasementLevel` INT NOT NULL,
   `ParkingNumber` INT NOT NULL,
   `UserType` VARCHAR(45) NOT NULL,
-  `Resident_AccountNumber` INT NOT NULL,
-  `ServiceProvider_AccountNumber` INT NOT NULL,
+  `Resident_AccountNumber` INT NULL,
+  `ServiceProvider_AccountNumber` INT NULL,
   PRIMARY KEY (`ParkingID`),
   INDEX `fk_Parking_Resident1_idx` (`Resident_AccountNumber` ASC) VISIBLE,
   INDEX `fk_Parking_ServiceProvider1_idx` (`ServiceProvider_AccountNumber` ASC) VISIBLE,
@@ -96,12 +96,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Visitor` (
   `TempAccountNumber` INT NOT NULL,
-  `AccountNumber` INT NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
   `LastName` VARCHAR(45) NULL,
   `AccountExpiryTimeStamp` TIMESTAMP(6) NOT NULL,
   `AccountStartTimeStamp` TIMESTAMP(6) NOT NULL,
-  PRIMARY KEY (`TempAccountNumber`, `AccountNumber`))
+  PRIMARY KEY (`TempAccountNumber`))
 ENGINE = InnoDB;
 
 
@@ -117,11 +116,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Complaint` (
   `Resident_AccountNumber` INT NOT NULL,
   `ServiceProvider_AccountNumber` INT NOT NULL,
   `Visitor_TempAccountNumber` INT NOT NULL,
-  `Visitor_AccountNumber` INT NOT NULL,
-  PRIMARY KEY (`ComplaintID`, `Visitor_TempAccountNumber`, `Visitor_AccountNumber`),
+  PRIMARY KEY (`ComplaintID`, `Visitor_TempAccountNumber`),
   INDEX `fk_Complaint_Resident1_idx` (`Resident_AccountNumber` ASC) VISIBLE,
   INDEX `fk_Complaint_ServiceProvider1_idx` (`ServiceProvider_AccountNumber` ASC) VISIBLE,
-  INDEX `fk_Complaint_Visitor1_idx` (`Visitor_TempAccountNumber` ASC, `Visitor_AccountNumber` ASC) VISIBLE,
+  INDEX `fk_Complaint_Visitor1_idx` (`Visitor_TempAccountNumber` ASC) VISIBLE,
   CONSTRAINT `fk_Complaint_Resident1`
     FOREIGN KEY (`Resident_AccountNumber`)
     REFERENCES `mydb`.`Resident` (`AccountNumber`)
@@ -133,8 +131,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Complaint` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Complaint_Visitor1`
-    FOREIGN KEY (`Visitor_TempAccountNumber` , `Visitor_AccountNumber`)
-    REFERENCES `mydb`.`Visitor` (`TempAccountNumber` , `AccountNumber`)
+    FOREIGN KEY (`Visitor_TempAccountNumber`)
+    REFERENCES `mydb`.`Visitor` (`TempAccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -227,14 +225,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Visitor_has_Resident` (
   `Visitor_TempAccountNumber` INT NOT NULL,
-  `Visitor_AccountNumber` INT NOT NULL,
   `Resident_AccountNumber` INT NOT NULL,
-  PRIMARY KEY (`Visitor_TempAccountNumber`, `Visitor_AccountNumber`, `Resident_AccountNumber`),
+  PRIMARY KEY (`Visitor_TempAccountNumber`, `Resident_AccountNumber`),
   INDEX `fk_Visitor_has_Resident_Resident1_idx` (`Resident_AccountNumber` ASC) VISIBLE,
-  INDEX `fk_Visitor_has_Resident_Visitor1_idx` (`Visitor_TempAccountNumber` ASC, `Visitor_AccountNumber` ASC) VISIBLE,
+  INDEX `fk_Visitor_has_Resident_Visitor1_idx` (`Visitor_TempAccountNumber` ASC) VISIBLE,
   CONSTRAINT `fk_Visitor_has_Resident_Visitor1`
-    FOREIGN KEY (`Visitor_TempAccountNumber` , `Visitor_AccountNumber`)
-    REFERENCES `mydb`.`Visitor` (`TempAccountNumber` , `AccountNumber`)
+    FOREIGN KEY (`Visitor_TempAccountNumber`)
+    REFERENCES `mydb`.`Visitor` (`TempAccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Visitor_has_Resident_Resident1`
