@@ -1,23 +1,23 @@
 -- MySQL Workbench Forward Engineering
-
+create database housemate;
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema housemate
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema housemate
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `housemate` DEFAULT CHARACTER SET utf8 ;
+USE `housemate` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Resident`
+-- Table `housemate`.`Resident`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Resident` (
+CREATE TABLE IF NOT EXISTS `housemate`.`Resident` (
   `AccountNumber` INT NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
   `LastName` VARCHAR(45) NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Resident` (
   PRIMARY KEY (`AccountNumber`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`Resident`(
+INSERT INTO `housemate`.`Resident`(
 	`AccountNumber`,
     `FirstName`,
     `LastName`,
@@ -345,16 +345,16 @@ VALUES(
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`PhoneNumbers`
+-- Table `housemate`.`PhoneNumbers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`PhoneNumbers` (
+CREATE TABLE IF NOT EXISTS `housemate`.`PhoneNumbers` (
   `AccountNumber` INT NOT NULL,
   `PhoneNumber` VARCHAR(15) NOT NULL,
   `UserType` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`PhoneNumber`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`PhoneNumbers` (
+INSERT INTO `housemate`.`PhoneNumbers` (
 	`AccountNumber`,
     `PhoneNumber`,
     `UserType`
@@ -514,16 +514,16 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`LicenseNumber`
+-- Table `housemate`.`LicenseNumber`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`LicenseNumber` (
+CREATE TABLE IF NOT EXISTS `housemate`.`LicenseNumber` (
   `AccountNumber` INT NOT NULL,
   `LicenseNumber` VARCHAR(45) NOT NULL,
   `UserType` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`AccountNumber`, `LicenseNumber`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`LicenseNumber`(
+INSERT INTO `housemate`.`LicenseNumber`(
 `AccountNumber`,
 `LicenseNumber`,
 `UserType`
@@ -563,9 +563,9 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`ServiceProvider`
+-- Table `housemate`.`ServiceProvider`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`ServiceProvider` (
+CREATE TABLE IF NOT EXISTS `housemate`.`ServiceProvider` (
   `AccountNumber` INT NOT NULL,
   `AttendanceInformation` VARCHAR(500) NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
@@ -573,7 +573,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ServiceProvider` (
   PRIMARY KEY (`AccountNumber`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`ServiceProvider` (
+INSERT INTO `housemate`.`ServiceProvider` (
 `AccountNumber`,
 `AttendanceInformation`,
 `FirstName`,
@@ -613,9 +613,9 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Parking`
+-- Table `housemate`.`Parking`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Parking` (
+CREATE TABLE IF NOT EXISTS `housemate`.`Parking` (
   `ParkingID` INT NOT NULL,
   `VehicleType` VARCHAR(45) NOT NULL,
   `BasementLevel` INT NOT NULL,
@@ -628,17 +628,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Parking` (
   INDEX `fk_Parking_ServiceProvider1_idx` (`ServiceProvider_AccountNumber` ASC) VISIBLE,
   CONSTRAINT `fk_Parking_Resident1`
     FOREIGN KEY (`Resident_AccountNumber`)
-    REFERENCES `mydb`.`Resident` (`AccountNumber`)
+    REFERENCES `housemate`.`Resident` (`AccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Parking_ServiceProvider1`
     FOREIGN KEY (`ServiceProvider_AccountNumber`)
-    REFERENCES `mydb`.`ServiceProvider` (`AccountNumber`)
+    REFERENCES `housemate`.`ServiceProvider` (`AccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`Parking` (
+INSERT INTO `housemate`.`Parking` (
 `ParkingID`,
 `VehicleType`,
 `BasementLevel`,
@@ -682,9 +682,9 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Visitor`
+-- Table `housemate`.`Visitor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Visitor` (
+CREATE TABLE IF NOT EXISTS `housemate`.`Visitor` (
   `TempAccountNumber` INT NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
   `LastName` VARCHAR(45) NULL,
@@ -693,9 +693,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Visitor` (
   PRIMARY KEY (`TempAccountNumber`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`Visitor` (
+INSERT INTO `housemate`.`Visitor` (
 `TempAccountNumber`,
-`AccountNumber`,
 `FirstName`,
 `LastName`,
 `AccountExpiryTimeStamp`,
@@ -721,7 +720,7 @@ VALUES
 (18,"Saumya","Kapoor",'2020-05-21','2020-05-17'),
 (19,"Imik","Khan",'2020-05-15','2020-05-10'),
 (20,"Smiti","Jones",'2020-05-26','2020-05-20'),
-(21,"Tarushi","Gupta",'2020-05-29','020-05-27'),
+(21,"Tarushi","Gupta",'2020-05-29','2020-05-27'),
 (22,"Kareena","Khan",'2020-06-03','2020-06-01'),
 (23,"Keera","Ahmed",'2020-06-07','2020-06-05'),
 (24,"Meenal","Kumaari",'2020-06-10','2020-06-08'),
@@ -735,9 +734,9 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Complaint`
+-- Table `housemate`.`Complaint`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Complaint` (
+CREATE TABLE IF NOT EXISTS `housemate`.`Complaint` (
   `ComplaintID` INT NOT NULL,
   `TimeStamp` TIMESTAMP(6) NOT NULL,
   `StaffResolutionStatus` VARCHAR(1) NOT NULL,
@@ -748,7 +747,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Complaint` (
   PRIMARY KEY (`ComplaintID`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`Complaint` (
+INSERT INTO `housemate`.`Complaint` (
 `ComplaintID`,
 `TimeStamp`,
 `StaffResolutionStatus`,
@@ -789,16 +788,16 @@ VALUES
 (30,'2021-05-23 21:00:00','T','T','Irregular cleaning of the common lockers',"resident",27);
 
 -- -----------------------------------------------------
--- Table `mydb`.`TargetUser`
+-- Table `housemate`.`TargetUser`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TargetUser` (
+CREATE TABLE IF NOT EXISTS `housemate`.`TargetUser` (
   `ID` INT NOT NULL,
   `TargetUser` VARCHAR(45) NOT NULL,
   `QueryType` VARCHAR(45) NOT NULL COMMENT 'announcements/ complaint',
   PRIMARY KEY (`ID`, `TargetUser`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`TargetUser` (
+INSERT INTO `housemate`.`TargetUser` (
 `ID`,
 `TargetUser`,
 `QueryType`)
@@ -837,16 +836,16 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`MaintenanceStaff`
+-- Table `housemate`.`MaintenanceStaff`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`MaintenanceStaff` (
+CREATE TABLE IF NOT EXISTS `housemate`.`MaintenanceStaff` (
   `AccountID` INT NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
   `LastName` VARCHAR(45) NULL,
   PRIMARY KEY (`AccountID`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`MaintenanceStaff` (
+INSERT INTO `housemate`.`MaintenanceStaff` (
 `AccountID`,
 `FirstName`,
 `LastName`)
@@ -885,9 +884,9 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`SecurityStaff`
+-- Table `housemate`.`SecurityStaff`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`SecurityStaff` (
+CREATE TABLE IF NOT EXISTS `housemate`.`SecurityStaff` (
   `AccountID` INT NOT NULL,
   `AttendanceInformation` VARCHAR(500) NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
@@ -895,7 +894,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`SecurityStaff` (
   PRIMARY KEY (`AccountID`))
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`SecurityStaff` (
+INSERT INTO `housemate`.`SecurityStaff` (
 `AccountID`,
 `AttendanceInformation`,
 `FirstName`,
@@ -933,30 +932,30 @@ VALUES
 (30,"AAPAPPAPPAAPAPAPAAAPAPAPAPPPAP","Sachin","Bakshi"); 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Announcement`
+-- Table `housemate`.`Announcement`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Announcement` (
+CREATE TABLE IF NOT EXISTS `housemate`.`Announcement` (
   `AnnouncementID` INT NOT NULL,
   `TimeStamp` TIMESTAMP(6) NOT NULL,
   `Description` VARCHAR(100) NOT NULL,
-  `MaintenanceStaff_AccountID` INT NOT NULL,
-  `SecurityStaff_AccountID` INT NOT NULL,
+  `MaintenanceStaff_AccountID` INT NULL,
+  `SecurityStaff_AccountID` INT  NULL,
   PRIMARY KEY (`AnnouncementID`),
   INDEX `fk_Announcement_MaintenanceStaff1_idx` (`MaintenanceStaff_AccountID` ASC) VISIBLE,
   INDEX `fk_Announcement_SecurityStaff1_idx` (`SecurityStaff_AccountID` ASC) VISIBLE,
   CONSTRAINT `fk_Announcement_MaintenanceStaff1`
     FOREIGN KEY (`MaintenanceStaff_AccountID`)
-    REFERENCES `mydb`.`MaintenanceStaff` (`AccountID`)
+    REFERENCES `housemate`.`MaintenanceStaff` (`AccountID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Announcement_SecurityStaff1`
     FOREIGN KEY (`SecurityStaff_AccountID`)
-    REFERENCES `mydb`.`SecurityStaff` (`AccountID`)
+    REFERENCES `housemate`.`SecurityStaff` (`AccountID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`Announcement` (
+INSERT INTO `housemate`.`Announcement` (
 `AnnouncementID`,
 `TimeStamp`,
 `Description`,
@@ -998,9 +997,9 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Resident_has_ServiceProvider`
+-- Table `housemate`.`Resident_has_ServiceProvider`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Resident_has_ServiceProvider` (
+CREATE TABLE IF NOT EXISTS `housemate`.`Resident_has_ServiceProvider` (
   `Resident_AccountNumber` INT NOT NULL,
   `ServiceProvider_AccountNumber` INT NOT NULL,
   PRIMARY KEY (`Resident_AccountNumber`, `ServiceProvider_AccountNumber`),
@@ -1008,17 +1007,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Resident_has_ServiceProvider` (
   INDEX `fk_Resident_has_ServiceProvider_Resident1_idx` (`Resident_AccountNumber` ASC) VISIBLE,
   CONSTRAINT `fk_Resident_has_ServiceProvider_Resident1`
     FOREIGN KEY (`Resident_AccountNumber`)
-    REFERENCES `mydb`.`Resident` (`AccountNumber`)
+    REFERENCES `housemate`.`Resident` (`AccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Resident_has_ServiceProvider_ServiceProvider1`
     FOREIGN KEY (`ServiceProvider_AccountNumber`)
-    REFERENCES `mydb`.`ServiceProvider` (`AccountNumber`)
+    REFERENCES `housemate`.`ServiceProvider` (`AccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`Resident_has_ServiceProvider`(
+INSERT INTO `housemate`.`Resident_has_ServiceProvider`(
 `Resident_AccountNumber`,
 `ServiceProvider_AccountNumber`)
 
@@ -1059,9 +1058,9 @@ VALUES
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Visitor_has_Resident`
+-- Table `housemate`.`Visitor_has_Resident`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Visitor_has_Resident` (
+CREATE TABLE IF NOT EXISTS `housemate`.`Visitor_has_Resident` (
   `Visitor_TempAccountNumber` INT NOT NULL,
   `Resident_AccountNumber` INT NOT NULL,
   PRIMARY KEY (`Visitor_TempAccountNumber`, `Resident_AccountNumber`),
@@ -1069,17 +1068,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Visitor_has_Resident` (
   INDEX `fk_Visitor_has_Resident_Visitor1_idx` (`Visitor_TempAccountNumber` ASC) VISIBLE,
   CONSTRAINT `fk_Visitor_has_Resident_Visitor1`
     FOREIGN KEY (`Visitor_TempAccountNumber`)
-    REFERENCES `mydb`.`Visitor` (`TempAccountNumber`)
+    REFERENCES `housemate`.`Visitor` (`TempAccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Visitor_has_Resident_Resident1`
     FOREIGN KEY (`Resident_AccountNumber`)
-    REFERENCES `mydb`.`Resident` (`AccountNumber`)
+    REFERENCES `housemate`.`Resident` (`AccountNumber`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO `mydb`.`Visitor_has_Resident`(
+INSERT INTO `housemate`.`Visitor_has_Resident`(
 `Visitor_TempAccountNumber`,
 `Resident_AccountNumber`)
 VALUES
